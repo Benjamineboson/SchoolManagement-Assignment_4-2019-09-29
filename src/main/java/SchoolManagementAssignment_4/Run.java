@@ -6,6 +6,8 @@ import SchoolManagementAssignment_4.model.Course;
 import SchoolManagementAssignment_4.model.Student;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,10 +39,14 @@ public class Run {
                     } else if (choice1secondChoice.equalsIgnoreCase("2")) {
                         Scanner courseScanner = new Scanner (System.in);
                         System.out.println("Enter course name, start date (YYYY-MM-DD), duration of course (number of weeks)");
-                        String tempName = courseScanner.nextLine();
-                        String tempDate = courseScanner.nextLine();
-                        Course newCourse = new Course(tempName, LocalDate.parse(tempDate),courseScanner.nextInt());
-                        courseList.saveCourse(newCourse);
+                       try {
+                           String tempName = courseScanner.nextLine();
+                           String tempDate = courseScanner.nextLine();
+                           Course newCourse = new Course(tempName, LocalDate.parse(tempDate), courseScanner.nextInt());
+                           courseList.saveCourse(newCourse);
+                       }catch (InputMismatchException|DateTimeParseException e){
+                           System.out.println("Enter valid date (YYYY-MM-DD) / Enter valid course duration (0-9)");
+                       }
                     } else {
                         System.out.println("Make a choice between 1 - 2");
                     }
@@ -54,14 +60,22 @@ public class Run {
                         }
                         System.out.println("Enter the email address of the student and the ID of the desired course");
                         Student tempStudent = studentList.findByEmail(choice2Scanner.nextLine());
-                        courseList.findById(choice2Scanner.nextInt()).addStudent(tempStudent);
+                        try{
+                            courseList.findById(choice2Scanner.nextInt()).addStudent(tempStudent);
+                        }catch (InputMismatchException|NullPointerException e){
+                            System.out.println("Email or ID non existent");
+                        }
                     }else if (choice2secondChoice.equalsIgnoreCase("2")){
                         for (Course course:courseList.findAll()){
                             System.out.println(course.getCourseName()+" ID: "+course.getCourseId());
                         }
                         System.out.println("Enter the email address of the student and the ID of the desired course");
                         Student tempStudent = studentList.findByEmail(choice2Scanner.nextLine());
-                        courseList.findById(choice2Scanner.nextInt()).removeStudent(tempStudent);
+                        try{
+                            courseList.findById(choice2Scanner.nextInt()).removeStudent(tempStudent);
+                        }catch (InputMismatchException|NullPointerException e){
+                            System.out.println("Email or ID non existent");
+                        }
                     }else{
                         System.out.println("Make a choice between 1 - 2");
                     }
@@ -89,24 +103,33 @@ public class Run {
 
                         else if(choice3thirdChoice.equalsIgnoreCase("2")){
                             System.out.println("Enter student ID");
-                            Student tempStudent = studentList.findById(choice3Scanner.nextInt());
-                            System.out.println("\n-----------STUDENT-INFO-----------"+
-                                    "\nName: "+tempStudent.getName()+
-                                    "\nID: "+tempStudent.getStudentId()+
-                                    "\nEmail: "+tempStudent.getEmail()+
-                                    "\nAddress: "+tempStudent.getAddress()+"\n"+
-                                    "-----------STUDENT-INFO-----------\n");
+                            try{
+                                Student tempStudent = studentList.findById(choice3Scanner.nextInt());
+                                System.out.println("\n-----------STUDENT-INFO-----------"+
+                                        "\nName: "+tempStudent.getName()+
+                                        "\nID: "+tempStudent.getStudentId()+
+                                        "\nEmail: "+tempStudent.getEmail()+
+                                        "\nAddress: "+tempStudent.getAddress()+"\n"+
+                                        "-----------STUDENT-INFO-----------\n");
+                            }catch (NullPointerException|InputMismatchException e){
+                                System.out.println("Enter valid ID");
+                            }
+
                         }
 
                         else if(choice3thirdChoice.equalsIgnoreCase("3")){
                             System.out.println("Enter student Email");
-                            Student tempStudent = studentList.findByEmail(choice3Scanner.nextLine());
-                            System.out.println("\n-----------STUDENT-INFO-----------"+
-                                    "\nName: "+tempStudent.getName()+
-                                    "\nID: "+tempStudent.getStudentId()+
-                                    "\nEmail: "+tempStudent.getEmail()+
-                                    "\nAddress: "+tempStudent.getAddress()+"\n"+
-                                    "-----------STUDENT-INFO-----------\n");
+                            try {
+                                Student tempStudent = studentList.findByEmail(choice3Scanner.nextLine());
+                                System.out.println("\n-----------STUDENT-INFO-----------" +
+                                        "\nName: " + tempStudent.getName() +
+                                        "\nID: " + tempStudent.getStudentId() +
+                                        "\nEmail: " + tempStudent.getEmail() +
+                                        "\nAddress: " + tempStudent.getAddress() + "\n" +
+                                        "-----------STUDENT-INFO-----------\n");
+                            }catch (NullPointerException e){
+                                System.out.println("Enter valid Email");
+                            }
                         }
 
                         else if(choice3thirdChoice.equalsIgnoreCase("4")){
@@ -130,13 +153,17 @@ public class Run {
                         String choice3thirdChoice = choice3Scanner.nextLine();
                         if (choice3thirdChoice.equalsIgnoreCase("1")){
                             System.out.println("Enter course ID");
-                            Course tempCourse = courseList.findById(choice3Scanner.nextInt());
-                            System.out.println("\n-----------COURSE--INFO-----------"+
-                                    "\nName: "+tempCourse.getCourseName()+
-                                    "\nID: "+tempCourse.getCourseId()+
-                                    "\nStart date: "+tempCourse.getStartDate()+
-                                    "\nCourse duration: "+tempCourse.getCourseDuration()+" weeks\n"+
-                                    "-----------COURSE--INFO-----------\n");
+                            try {
+                                Course tempCourse = courseList.findById(choice3Scanner.nextInt());
+                                System.out.println("\n-----------COURSE--INFO-----------" +
+                                        "\nName: " + tempCourse.getCourseName() +
+                                        "\nID: " + tempCourse.getCourseId() +
+                                        "\nStart date: " + tempCourse.getStartDate() +
+                                        "\nCourse duration: " + tempCourse.getCourseDuration() + " weeks\n" +
+                                        "-----------COURSE--INFO-----------\n");
+                            }catch (InputMismatchException|NullPointerException e){
+                                System.out.println("Enter valid ID");
+                            }
                         }else if (choice3thirdChoice.equalsIgnoreCase("2")){
                             System.out.println("Enter course name");
                             List<Course> tempList = courseList.findByName(choice3Scanner.nextLine());
@@ -150,14 +177,18 @@ public class Run {
                             }
                         }else if (choice3thirdChoice.equalsIgnoreCase("3")){
                             System.out.println("Enter course start date");
+                            try{
                             List<Course> tempList = courseList.findByDate(LocalDate.parse(choice3Scanner.nextLine()));
                             for (Course course:tempList) {
-                                System.out.println("\n-----------COURSE--INFO-----------"+
-                                        "\nName: "+course.getCourseName()+
-                                        "\nID: "+course.getCourseId()+
-                                        "\nStart date: "+course.getStartDate()+
-                                        "\nCourse duration: "+course.getCourseDuration()+" weeks\n"+
+                                System.out.println("\n-----------COURSE--INFO-----------" +
+                                        "\nName: " + course.getCourseName() +
+                                        "\nID: " + course.getCourseId() +
+                                        "\nStart date: " + course.getStartDate() +
+                                        "\nCourse duration: " + course.getCourseDuration() + " weeks\n" +
                                         "-----------COURSE--INFO-----------\n");
+                            }
+                            }catch (NullPointerException|DateTimeParseException e){
+                                System.out.println("Enter valid date (YYYY-MM-DD)");
                             }
                         }else if (choice3thirdChoice.equalsIgnoreCase("4")){
                             List<Course> tempList = courseList.findAll();
@@ -182,40 +213,49 @@ public class Run {
                     String choice4secondChoice = choice4Scanner.nextLine();
                     if (choice4secondChoice.equalsIgnoreCase("1")){
                         System.out.println("Enter email of student you wish to edit");
-                        Student tempStudent = studentList.findByEmail(choice4Scanner.nextLine());
-                        System.out.println(tempStudent.getName()+"\n(1) Edit name: \n(2) Edit email: \n(3) Edit address");
-                        String choice4thirdChoice = choice4Scanner.nextLine();
-                        if (choice4thirdChoice.equalsIgnoreCase("1")){
-                            System.out.println("Enter new name");
-                            tempStudent.setName(choice4Scanner.nextLine());
-                        }else if (choice4thirdChoice.equalsIgnoreCase("2")){
-                            System.out.println("Enter new email");
-                            tempStudent.setEmail(choice4Scanner.nextLine());
-                        }else if (choice4thirdChoice.equalsIgnoreCase("3")){
-                            System.out.println("Enter new address");
-                            tempStudent.setAddress(choice4Scanner.nextLine());
-                        }else{
-                            System.out.println("Make a choice between 1 - 3");
+                        try {
+                            Student tempStudent = studentList.findByEmail(choice4Scanner.nextLine());
+                            System.out.println(tempStudent.getName() + "\n(1) Edit name: \n(2) Edit email: \n(3) Edit address");
+
+                            String choice4thirdChoice = choice4Scanner.nextLine();
+                            if (choice4thirdChoice.equalsIgnoreCase("1")) {
+                                System.out.println("Enter new name");
+                                tempStudent.setName(choice4Scanner.nextLine());
+                            } else if (choice4thirdChoice.equalsIgnoreCase("2")) {
+                                System.out.println("Enter new email");
+                                tempStudent.setEmail(choice4Scanner.nextLine());
+                            } else if (choice4thirdChoice.equalsIgnoreCase("3")) {
+                                System.out.println("Enter new address");
+                                tempStudent.setAddress(choice4Scanner.nextLine());
+                            } else {
+                                System.out.println("Make a choice between 1 - 3");
+                            }
+                        }catch (NullPointerException e){
+                            System.out.println("Enter valid Email");
                         }
                     }else if (choice4secondChoice.equalsIgnoreCase("2")){
                         Scanner choice4Scanner2 = new Scanner (System.in);
                         System.out.println("Enter ID of course you wish to edit");
-                        int tempId = choice4Scanner2.nextInt();
-                        Course tempCourse = courseList.findById(tempId);
-                        System.out.println(tempCourse.getCourseName()+"\n(1) Edit name: \n(2) Edit start date: \n(3) Edit course duration");
-                        String choice4thirdChoice = choice4Scanner.nextLine();
-                        if (choice4thirdChoice.equalsIgnoreCase("1")){
-                            System.out.println("Enter new name");
-                            tempCourse.setCourseName(choice4Scanner.nextLine());
-                        }else if (choice4thirdChoice.equalsIgnoreCase("2")){
-                            System.out.println("Enter new start date");
-                            tempCourse.setStartDate(LocalDate.parse(choice4Scanner.nextLine()));
-                        }else if (choice4thirdChoice.equalsIgnoreCase("3")){
-                            System.out.println("Enter new address");
-                            tempCourse.setCourseDuration(choice4Scanner.nextInt());
-                        }else{
-                            System.out.println("Make a choice between 1 - 3");
-                        }
+                       try {
+                           int tempId = choice4Scanner2.nextInt();
+                           Course tempCourse = courseList.findById(tempId);
+                           System.out.println(tempCourse.getCourseName() + "\n(1) Edit name: \n(2) Edit start date: \n(3) Edit course duration:");
+                           String choice4thirdChoice = choice4Scanner.nextLine();
+                           if (choice4thirdChoice.equalsIgnoreCase("1")) {
+                               System.out.println("Enter new name");
+                               tempCourse.setCourseName(choice4Scanner.nextLine());
+                           } else if (choice4thirdChoice.equalsIgnoreCase("2")) {
+                               System.out.println("Enter new start date");
+                               tempCourse.setStartDate(LocalDate.parse(choice4Scanner.nextLine()));
+                           } else if (choice4thirdChoice.equalsIgnoreCase("3")) {
+                               System.out.println("Enter new course duration in weeks");
+                               tempCourse.setCourseDuration(choice4Scanner.nextInt());
+                           } else {
+                               System.out.println("Make a choice between 1 - 3");
+                           }
+                       }catch (InputMismatchException|NullPointerException|DateTimeParseException e){
+                           System.out.println("Enter valid ID (0-9) / Enter valid start date (YYYY-MM-DD) / Enter valid course duration (0-9)");
+                       }
                     }else{
                         System.out.println("Make a choice between 1 - 2");
                     }

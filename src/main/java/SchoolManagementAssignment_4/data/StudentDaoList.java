@@ -10,7 +10,7 @@ public class StudentDaoList implements StudentDao {
     private static List<Student> studentList = new ArrayList<>();
 
 
-    // Test this
+    // TESTED & TESTED TO FAIL
     @Override
     public Student saveStudent(Student student) {
     if (!studentList.contains(student)){
@@ -22,7 +22,7 @@ public class StudentDaoList implements StudentDao {
     }
 
 
-    // Test this
+    // TESTED & TESTED TO FAIL - UNKNOWN ERROR
     @Override
     public Student findByEmail(String email) {
         for (Student student : studentList) {
