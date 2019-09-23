@@ -71,7 +71,7 @@ private List<Student> studentList;
     }
 
 
-    // Test this
+    // TESTED
     public Student findByEmail (String email){
         for (Student student:studentList) {
             if (student.getEmail().equalsIgnoreCase(email)){
@@ -81,7 +81,7 @@ private List<Student> studentList;
         return null;
     }
 
-    // Test this
+    // TESTED
     public Student findById (int id){
         for (Student student:studentList) {
             if (student.getStudentId() == id){
@@ -89,16 +89,5 @@ private List<Student> studentList;
             }
         }
         return null;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "courseId=" + courseId +
-                ", courseName='" + courseName + '\'' +
-                ", startDate=" + startDate +
-                ", courseDuration=" + courseDuration +
-                ", studentList=" + studentList +
-                '}';
     }
 }

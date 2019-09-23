@@ -1,17 +1,11 @@
 package SchoolManagementAssignment_4;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import SchoolManagementAssignment_4.data.CourseDaoList;
 import SchoolManagementAssignment_4.data.StudentDaoList;
-import SchoolManagementAssignment_4.model.Course;
 import SchoolManagementAssignment_4.model.Student;
-import org.junit.Assert;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,19 +14,20 @@ public class StudentDaoListTest
 {
 
     private Student testStudent;
-    private Course testCourse;
     private StudentDaoList testStudentList;
-    private CourseDaoList testCourseList;
 
     @Before
     public void init (){
         testStudent = new Student (1,"Test Student","test@email.com","Test Address");
-        testCourse = new Course (1,"Test Course", LocalDate.parse("2020-01-01"),5);
         testStudentList = new StudentDaoList();
-        testCourseList = new CourseDaoList();
     }
 
-    // VARFÖR FUNKAR INTE!?
+    @After
+    public void clearLists(){
+        testStudentList.findAll().clear();
+    }
+
+
     @Test
     public void test_FindByEmail(){
         testStudentList.saveStudent(testStudent);
@@ -74,5 +69,20 @@ public class StudentDaoListTest
         actual.remove(testStudent);
         expected.remove(testStudent);
         assertEquals(expected,actual);
+    }
+
+    @Test
+    public void test_findAll(){
+        List<Student> expected = new ArrayList<>();
+        expected.add(testStudent);
+        testStudentList.saveStudent(testStudent);
+        assertEquals(expected,testStudentList.findAll());
+    }
+
+    @Test
+    public void test_deleteStudent(){
+        testStudentList.saveStudent(testStudent);
+        assertEquals(true,testStudentList.deleteStudent(testStudent));
+        assertEquals(false,testStudentList.deleteStudent(testStudent));
     }
 }

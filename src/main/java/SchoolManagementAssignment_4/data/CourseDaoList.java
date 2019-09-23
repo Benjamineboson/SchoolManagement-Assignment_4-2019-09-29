@@ -10,7 +10,7 @@ public class CourseDaoList implements CourseDao {
 
     private static List<Course> courseList = new ArrayList<>();
 
-    // Test this
+    // TESTED
     @Override
     public Course saveCourse(Course course) {
         if(!courseList.contains(course)){
@@ -21,7 +21,7 @@ public class CourseDaoList implements CourseDao {
         return null;
     }
 
-    // Test this
+    // TESTED
     @Override
     public Course findById(int id) {
         for (Course course:courseList) {
@@ -32,7 +32,7 @@ public class CourseDaoList implements CourseDao {
         return null;
     }
 
-    // Test this
+    // TESTED
     @Override
     public List<Course> findByName(String name) {
        List<Course> tempList = new ArrayList<>();
@@ -44,7 +44,7 @@ public class CourseDaoList implements CourseDao {
         return tempList;
     }
 
-    // Test this
+    // TESTED
     @Override
     public List<Course> findByDate(LocalDate date) {
        List<Course> tempList = new ArrayList<>();
@@ -56,13 +56,13 @@ public class CourseDaoList implements CourseDao {
         return tempList;
     }
 
-    // Test this
+    // TESTED
     @Override
     public List<Course> findAll() {
         return courseList;
     }
 
-    // Test this
+    // TESTED
     @Override
     public boolean removeCourse(Course course) {
         if (courseList.contains(course)){

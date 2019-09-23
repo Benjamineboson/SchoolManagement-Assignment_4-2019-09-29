@@ -9,8 +9,7 @@ public class StudentDaoList implements StudentDao {
 
     private static List<Student> studentList = new ArrayList<>();
 
-
-    // TESTED & TESTED TO FAIL
+    // TESTED
     @Override
     public Student saveStudent(Student student) {
     if (!studentList.contains(student)){
@@ -22,7 +21,7 @@ public class StudentDaoList implements StudentDao {
     }
 
 
-    // TESTED & TESTED TO FAIL - UNKNOWN ERROR
+    // TESTED
     @Override
     public Student findByEmail(String email) {
         for (Student student : studentList) {
@@ -34,7 +33,7 @@ public class StudentDaoList implements StudentDao {
     }
 
 
-    // Test this
+    // TESTED
     @Override
     public Student findById(int id) {
         for (Student student:studentList) {
@@ -46,7 +45,7 @@ public class StudentDaoList implements StudentDao {
     }
 
 
-    // Test this
+    // TESTED
     @Override
     public List<Student> findByName(String name) {
         List<Student> tempList = new ArrayList<>();
@@ -59,14 +58,14 @@ public class StudentDaoList implements StudentDao {
     }
 
 
-    // Test this
+    // TESTED
     @Override
     public List<Student> findAll() {
         return studentList;
     }
 
 
-    // Test this
+    // TESTED
     @Override
     public boolean deleteStudent(Student student) {
     if(studentList.contains(student)){
