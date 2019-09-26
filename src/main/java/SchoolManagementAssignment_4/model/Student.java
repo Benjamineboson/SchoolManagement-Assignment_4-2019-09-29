@@ -27,7 +27,7 @@ public class Student {
         return studentName;
     }
 
-    public void setName(String name) {
+    public void setName(String studentName) {
         this.studentName = studentName;
     }
 
@@ -49,7 +49,7 @@ public class Student {
 
     public void getInfo(){
         System.out.println("\n-----------STUDENT-INFO-----------"+
-                "\nName: "+getName()+
+                "\nName: "+this.getName()+
                 "\nID: "+getStudentId()+
                 "\nEmail: "+getEmail()+
                 "\nAddress: "+getAddress()+"\n"+
