@@ -11,19 +11,29 @@ private int courseId;
 private String courseName;
 private LocalDate startDate;
 private int courseDuration;
+private Teacher courseSupervisor;
 private List<Student> studentList;
+private List<Lecture> lectureList;
 
-
-    public Course(int courseId, String courseName, LocalDate startDate, int courseDuration) {
+    public Course(int courseId, String courseName, LocalDate startDate, int courseDuration, Teacher courseSupervisor) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.startDate = startDate;
         this.courseDuration = courseDuration;
+        this.courseSupervisor = courseSupervisor;
         this.studentList = new ArrayList<>();
     }
 
-    public Course(String courseName, LocalDate startDate, int courseDuration) {
-        this (++courseCounter,courseName,startDate,courseDuration);
+    public Course(String courseName, LocalDate startDate, int courseDuration, Teacher courseSupervisor) {
+        this (++courseCounter,courseName,startDate,courseDuration,courseSupervisor);
+    }
+
+    public Teacher getCourseSupervisor() {
+        return courseSupervisor;
+    }
+
+    public void setCourseSupervisor(Teacher courseSupervisor) {
+        this.courseSupervisor = courseSupervisor;
     }
 
     public int getCourseId() {
@@ -70,7 +80,6 @@ private List<Student> studentList;
         studentList.remove(student);
     }
 
-
     // TESTED
     public Student findByEmail (String email){
         for (Student student:studentList) {
@@ -89,5 +98,15 @@ private List<Student> studentList;
             }
         }
         return null;
+    }
+
+    public void getInfo(){
+        System.out.println("\n-----------COURSE--INFO-----------"+
+                "\nName: "+getCourseName()+
+                "\nID: "+getCourseId()+
+                "\nStart date: "+getStartDate()+
+                "\nCourse duration: "+getCourseDuration()+" weeks"+
+                "\nCourse supervisor: "+getCourseSupervisor().getTeacherName()+"\n"+
+                "-----------COURSE--INFO-----------\n");
     }
 }

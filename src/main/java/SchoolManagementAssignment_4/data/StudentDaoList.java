@@ -67,7 +67,7 @@ public class StudentDaoList implements StudentDao {
 
     // TESTED
     @Override
-    public boolean deleteStudent(Student student) {
+    public boolean removeStudent(Student student) {
     if(studentList.contains(student)){
         System.out.println(student.getName()+" removed");
         studentList.remove(student);

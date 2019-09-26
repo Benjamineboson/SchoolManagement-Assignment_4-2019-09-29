@@ -2,6 +2,7 @@ package SchoolManagementAssignment_4;
 
 import SchoolManagementAssignment_4.data.CourseDaoList;
 import SchoolManagementAssignment_4.model.Course;
+import SchoolManagementAssignment_4.model.Teacher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +17,12 @@ public class CourseDaoListTest {
 
     private Course testCourse;
     private CourseDaoList testCourseList;
+    private Teacher testTeacher;
 
     @Before
     public void init (){
-        testCourse = new Course(1,"Test Course", LocalDate.parse("2020-01-01"),5);
+        testTeacher = new Teacher("Test Teacher");
+        testCourse = new Course(1,"Test Course", LocalDate.parse("2020-01-01"),5,testTeacher);
         testCourseList = new CourseDaoList();
     }
 

@@ -82,7 +82,7 @@ public class StudentDaoListTest
     @Test
     public void test_deleteStudent(){
         testStudentList.saveStudent(testStudent);
-        assertEquals(true,testStudentList.deleteStudent(testStudent));
-        assertEquals(false,testStudentList.deleteStudent(testStudent));
+        assertEquals(true,testStudentList.removeStudent(testStudent));
+        assertEquals(false,testStudentList.removeStudent(testStudent));
     }
 }

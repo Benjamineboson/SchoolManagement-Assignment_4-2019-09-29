@@ -4,13 +4,13 @@ public class Student {
 
     private static int studentCounter;
     private int studentId;
-    private String name;
+    private String studentName;
     private String email;
     private String address;
 
-    public Student(int studentId, String name, String email, String address) {
+    public Student(int studentId, String studentName, String email, String address) {
         this.studentId = studentId;
-        this.name = name;
+        this.studentName = studentName;
         this.email = email;
         this.address = address;
     }
@@ -24,11 +24,11 @@ public class Student {
     }
 
     public String getName() {
-        return name;
+        return studentName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.studentName = studentName;
     }
 
     public String getEmail() {
@@ -47,11 +47,20 @@ public class Student {
         this.address = address;
     }
 
+    public void getInfo(){
+        System.out.println("\n-----------STUDENT-INFO-----------"+
+                "\nName: "+getName()+
+                "\nID: "+getStudentId()+
+                "\nEmail: "+getEmail()+
+                "\nAddress: "+getAddress()+"\n"+
+                "-----------STUDENT-INFO-----------\n");
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
-                ", name='" + name + '\'' +
+                ", name='" + studentName + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 '}';
