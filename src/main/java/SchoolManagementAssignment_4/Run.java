@@ -1,13 +1,9 @@
 package SchoolManagementAssignment_4;
 
 import SchoolManagementAssignment_4.data.CourseDaoList;
-import SchoolManagementAssignment_4.data.LectureDaoList;
 import SchoolManagementAssignment_4.data.StudentDaoList;
-import SchoolManagementAssignment_4.data.TeacherDaoList;
 import SchoolManagementAssignment_4.model.Course;
-import SchoolManagementAssignment_4.model.Lecture;
 import SchoolManagementAssignment_4.model.Student;
-import SchoolManagementAssignment_4.model.Teacher;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,8 +15,6 @@ import java.util.Scanner;
 public class Run {
     private CourseDaoList courseList = new CourseDaoList();
     private StudentDaoList studentList = new StudentDaoList();
-    private TeacherDaoList teacherList = new TeacherDaoList();
-    private LectureDaoList lectureList = new LectureDaoList();
 
     public void run (){
         Scanner scan = new Scanner (System.in);
@@ -28,29 +22,22 @@ public class Run {
         while (isInUse){
             boolean isChoosing = true;
             while (isChoosing) {
-                System.out.println("(1) Create new student/teacher/course/lecture\n" +
+                System.out.println("(1) Create new student/course\n" +
                         "(2) Register/Remove student from course\n" +
-                        "(3) Register/Remove teacher from lecture\n" +
-                        "(4) Register/Remove lecture from course\n" +
-                        "(5) Find specific student/course\n" +
-                        "(6) Edit student/course\n" +
-                        "(7) Quit");
+                        "(3) Find specific student/course\n" +
+                        "(4) Edit student/course\n" +
+                        "(5) Quit");
                 String choice = scan.nextLine();
                 if (choice.equalsIgnoreCase("1")){
                     Scanner choice1Scanner = new Scanner(System.in);
-                    System.out.println("(1) Create new student\n(2) Create new teacher\n(3) Create new course\n(4) Create new lecture");
+                    System.out.println("(1) Create new student\n(2) Create new course");
                     String choice1secondChoice = choice1Scanner.nextLine();
                     if (choice1secondChoice.equalsIgnoreCase("1")) {
                         Scanner studentScanner = new Scanner(System.in);
                         System.out.println("Enter full name, email and address - In that order.");
                         Student newStudent = new Student(studentScanner.nextLine(), studentScanner.nextLine(), studentScanner.nextLine());
                         studentList.saveStudent(newStudent);
-                    }else if (choice1secondChoice.equalsIgnoreCase("2")){
-                        Scanner teacherScanner = new Scanner (System.in);
-                        System.out.println("Enter name");
-                        Teacher newTeacher = new Teacher(teacherScanner.nextLine());
-                        teacherList.saveTeacher(newTeacher);
-                    } else if (choice1secondChoice.equalsIgnoreCase("3")) {
+                    }else if (choice1secondChoice.equalsIgnoreCase("2")) {
                         Scanner courseScanner = new Scanner (System.in);
                         System.out.println("Enter course name");
                        try {
@@ -59,25 +46,13 @@ public class Run {
                            String tempDate = courseScanner.nextLine();
                            System.out.println("Enter duration of course (number of weeks)");
                            int tempDuration = courseScanner.nextInt();
-                           for (Teacher teacher:teacherList.findAll()){
-                               System.out.println("Name: "+teacher.getTeacherName()+"\t|\tId: "+teacher.getTeacherId());
-                           }
-                           System.out.println("Enter the ID of the teacher supervising the course");
-                           Course newCourse = new Course(tempName, LocalDate.parse(tempDate), tempDuration,teacherList.findById(courseScanner.nextInt()));
+                           Course newCourse = new Course(tempName, LocalDate.parse(tempDate), tempDuration);
                            courseList.saveCourse(newCourse);
                        }catch (InputMismatchException|DateTimeParseException e){
                            System.out.println("Enter valid date (YYYY-MM-DD) / Enter valid course duration (0-9)");
                        }
-                    }else if (choice1secondChoice.equalsIgnoreCase("4")){
-                        Scanner lectureScanner = new Scanner (System.in);
-                        System.out.println("Enter lecture name");
-                        String tempName = lectureScanner.nextLine();
-                        System.out.println("Enter time of lecture");
-                        String tempTime = lectureScanner.nextLine();
-                        Lecture tempLecture = new Lecture (tempName,LocalTime.parse(tempTime));
-                        lectureList.saveLecture(tempLecture);
-                    } else {
-                        System.out.println("Make a choice between 1 - 4");
+                    }else {
+                        System.out.println("Make a choice between 1 - 2");
                     }
                 } else if (choice.equalsIgnoreCase("2")) {
                     Scanner choice2Scanner = new Scanner(System.in);
@@ -108,11 +83,7 @@ public class Run {
                     }else{
                         System.out.println("Make a choice between 1 - 2");
                     }
-                }else if(choice.equalsIgnoreCase("3")){
-
-                }else if(choice.equalsIgnoreCase("4")){
-
-                }else  if (choice.equalsIgnoreCase("5")) {
+                }else if (choice.equalsIgnoreCase("3")) {
                     Scanner choice3Scanner = new Scanner(System.in);
                     System.out.println("(1) Find student\n(2) Find course");
                     String choice3secondChoice = choice3Scanner.nextLine();
@@ -129,7 +100,6 @@ public class Run {
                                 student.getInfo();
                             }
                         }
-
                         else if(choice3thirdChoice.equalsIgnoreCase("2")){
                             System.out.println("Enter student ID");
                             try{
@@ -140,7 +110,6 @@ public class Run {
                             }
 
                         }
-
                         else if(choice3thirdChoice.equalsIgnoreCase("3")){
                             System.out.println("Enter student Email");
                             try {
@@ -199,7 +168,7 @@ public class Run {
                     }else{
                         System.out.println("Make a choice between 1 - 2");
                     }
-                } else if (choice.equalsIgnoreCase("6")) {
+                } else if (choice.equalsIgnoreCase("4")) {
                     Scanner choice4Scanner = new Scanner (System.in);
                     System.out.println("(1) Edit student\n(2) Edit course");
                     String choice4secondChoice = choice4Scanner.nextLine();
@@ -251,7 +220,7 @@ public class Run {
                     }else{
                         System.out.println("Make a choice between 1 - 2");
                     }
-                }else if (choice.equalsIgnoreCase("7")){
+                }else if (choice.equalsIgnoreCase("5")){
                     isChoosing = false;
                 }else{
                     System.out.println("Make a choice between 1 - 5");

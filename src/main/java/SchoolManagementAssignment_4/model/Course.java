@@ -11,30 +11,20 @@ private int courseId;
 private String courseName;
 private LocalDate startDate;
 private int courseDuration;
-private Teacher courseSupervisor;
 private List<Student> studentList;
-private List<Lecture> lectureList;
 
-    public Course(int courseId, String courseName, LocalDate startDate, int courseDuration, Teacher courseSupervisor) {
+    public Course(int courseId, String courseName, LocalDate startDate, int courseDuration) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.startDate = startDate;
         this.courseDuration = courseDuration;
-        this.courseSupervisor = courseSupervisor;
         this.studentList = new ArrayList<>();
     }
 
-    public Course(String courseName, LocalDate startDate, int courseDuration, Teacher courseSupervisor) {
-        this (++courseCounter,courseName,startDate,courseDuration,courseSupervisor);
+    public Course(String courseName, LocalDate startDate, int courseDuration) {
+        this (++courseCounter,courseName,startDate,courseDuration);
     }
 
-    public Teacher getCourseSupervisor() {
-        return courseSupervisor;
-    }
-
-    public void setCourseSupervisor(Teacher courseSupervisor) {
-        this.courseSupervisor = courseSupervisor;
-    }
 
     public int getCourseId() {
         return courseId;
@@ -105,8 +95,7 @@ private List<Lecture> lectureList;
                 "\nName: "+getCourseName()+
                 "\nID: "+getCourseId()+
                 "\nStart date: "+getStartDate()+
-                "\nCourse duration: "+getCourseDuration()+" weeks"+
-                "\nCourse supervisor: "+getCourseSupervisor().getTeacherName()+"\n"+
+                "\nCourse duration: "+getCourseDuration()+" weeks\n"+
                 "-----------COURSE--INFO-----------\n");
     }
 }
