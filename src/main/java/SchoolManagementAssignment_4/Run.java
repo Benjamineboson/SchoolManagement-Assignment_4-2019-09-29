@@ -28,13 +28,13 @@ public class Run {
                         "(5) Quit");
                 String choice = scan.nextLine();
                 if (choice.equalsIgnoreCase("1")){
-                   choice1();
+                   choice1Create();
                 } else if (choice.equalsIgnoreCase("2")) {
-                   choice2();
+                   choice2Register();
                 }else if (choice.equalsIgnoreCase("3")) {
-                   choice3();
+                   choice3Find();
                 } else if (choice.equalsIgnoreCase("4")) {
-                   choice4();
+                   choice4Edit();
                 }else if (choice.equalsIgnoreCase("5")){
                     isChoosing = false;
                 }else{
@@ -50,7 +50,7 @@ public class Run {
         }
     }
 
-    public void choice1(){
+    public void choice1Create(){
         Scanner choice1Scanner = new Scanner(System.in);
         System.out.println("(1) Create new student\n(2) Create new course");
         String choice1secondChoice = choice1Scanner.nextLine();
@@ -76,7 +76,7 @@ public class Run {
         }
     }
 
-    public void choice2(){
+    public void choice2Register(){
         Scanner choice2Scanner = new Scanner(System.in);
         System.out.println("(1) Register student to course\n(2) Remove student from course");
         String choice2secondChoice = choice2Scanner.nextLine();
@@ -107,7 +107,7 @@ public class Run {
         }
     }
 
-    public void choice3(){
+    public void choice3Find(){
         Scanner choice3Scanner = new Scanner(System.in);
         System.out.println("(1) Find student\n(2) Find course");
         String choice3secondChoice = choice3Scanner.nextLine();
@@ -194,7 +194,7 @@ public class Run {
         }
     }
 
-    public void choice4(){
+    public void choice4Edit(){
         Scanner choice4Scanner = new Scanner (System.in);
         System.out.println("(1) Edit student\n(2) Edit course");
         String choice4secondChoice = choice4Scanner.nextLine();
