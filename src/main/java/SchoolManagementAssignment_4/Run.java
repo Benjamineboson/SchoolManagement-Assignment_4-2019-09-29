@@ -1,20 +1,16 @@
 package SchoolManagementAssignment_4;
-
 import SchoolManagementAssignment_4.data.CourseDaoList;
 import SchoolManagementAssignment_4.data.StudentDaoList;
 import SchoolManagementAssignment_4.model.Course;
 import SchoolManagementAssignment_4.model.Student;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
 public class Run {
     private CourseDaoList courseList = new CourseDaoList();
     private StudentDaoList studentList = new StudentDaoList();
-
     public void run (){
         Scanner scan = new Scanner (System.in);
         boolean isInUse = true;
@@ -46,7 +42,6 @@ public class Run {
             if (killSwitch.equalsIgnoreCase("1")){
                 isInUse = false;
             }
-
         }
     }
 
@@ -107,92 +102,94 @@ public class Run {
         }
     }
 
-    public void choice3Find(){
+    public void choice3Find() {
         Scanner choice3Scanner = new Scanner(System.in);
         System.out.println("(1) Find student\n(2) Find course");
         String choice3secondChoice = choice3Scanner.nextLine();
-        if (choice3secondChoice.equalsIgnoreCase("1")){
+        if (choice3secondChoice.equalsIgnoreCase("1")) {
             System.out.println("(1) Find student by name\n" +
                     "(2) Find student by ID\n" +
                     "(3) Find student by email\n" +
                     "(4) Get a list of all students");
             String choice3thirdChoice = choice3Scanner.nextLine();
-            if (choice3thirdChoice.equalsIgnoreCase("1")){
+            if (choice3thirdChoice.equalsIgnoreCase("1")) {
                 System.out.println("Enter student name");
                 List<Student> tempStudentList = studentList.findByName(choice3Scanner.nextLine());
                 for (Student student : tempStudentList) {
                     student.getInfo();
                 }
-            }
-            else if(choice3thirdChoice.equalsIgnoreCase("2")){
+            } else if (choice3thirdChoice.equalsIgnoreCase("2")) {
                 System.out.println("Enter student ID");
-                try{
+                try {
                     Student tempStudent = studentList.findById(choice3Scanner.nextInt());
                     tempStudent.getInfo();
-                }catch (NullPointerException|InputMismatchException e){
+                } catch (NullPointerException | InputMismatchException e) {
                     System.out.println("Enter valid ID");
                 }
-
-            }
-            else if(choice3thirdChoice.equalsIgnoreCase("3")){
+            } else if (choice3thirdChoice.equalsIgnoreCase("3")) {
                 System.out.println("Enter student Email");
                 try {
                     Student tempStudent = studentList.findByEmail(choice3Scanner.nextLine());
                     tempStudent.getInfo();
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     System.out.println("Enter valid Email");
                 }
-            }
-            else if(choice3thirdChoice.equalsIgnoreCase("4")){
+            } else if (choice3thirdChoice.equalsIgnoreCase("4")) {
                 List<Student> tempStudentList = studentList.findAll();
                 for (Student student : tempStudentList) {
                     student.getInfo();
                 }
-            }else{
+            } else {
                 System.out.println("Make a choice between 1 - 4");
             }
-        }else if(choice3secondChoice.equalsIgnoreCase("2")){
-            System.out.println("(1) Find course by ID\n" +
-                    "(2) Find course by name\n" +
-                    "(3) Find course by start date\n" +
-                    "(4) Get a list of all courses");
-            String choice3thirdChoice = choice3Scanner.nextLine();
-            if (choice3thirdChoice.equalsIgnoreCase("1")){
-                System.out.println("Enter course ID");
-                try {
-                    Course tempCourse = courseList.findById(choice3Scanner.nextInt());
-                    tempCourse.getInfo();
-                }catch (InputMismatchException|NullPointerException e){
-                    System.out.println("Enter valid ID");
-                }
-            }else if (choice3thirdChoice.equalsIgnoreCase("2")){
-                System.out.println("Enter course name");
-                List<Course> tempList = courseList.findByName(choice3Scanner.nextLine());
-                for (Course course:tempList) {
-                    course.getInfo();
-                }
-            }else if (choice3thirdChoice.equalsIgnoreCase("3")){
-                System.out.println("Enter course start date");
-                try{
-                    List<Course> tempList = courseList.findByDate(LocalDate.parse(choice3Scanner.nextLine()));
-                    for (Course course:tempList) {
-                        course.getInfo();
-                    }
-                }catch (NullPointerException|DateTimeParseException e){
-                    System.out.println("Enter valid date (YYYY-MM-DD)");
-                }
-            }else if (choice3thirdChoice.equalsIgnoreCase("4")){
-                List<Course> tempList = courseList.findAll();
-                for (Course course:tempList) {
-                    course.getInfo();
-                }
-            }else{
-                System.out.println("Make a choice between 1 - 4");
-            }
+        } else if (choice3secondChoice.equalsIgnoreCase("2")) {
+            choice3FindCourse();
         }else{
             System.out.println("Make a choice between 1 - 2");
         }
     }
+
+    public void choice3FindCourse(){
+        Scanner choice3Scanner = new Scanner (System.in);
+        System.out.println("(1) Find course by ID\n" +
+                "(2) Find course by name\n" +
+                "(3) Find course by start date\n" +
+                "(4) Get a list of all courses");
+        String choice3thirdChoice = choice3Scanner.nextLine();
+        if (choice3thirdChoice.equalsIgnoreCase("1")){
+            System.out.println("Enter course ID");
+            try {
+                Course tempCourse = courseList.findById(choice3Scanner.nextInt());
+                tempCourse.getInfo();
+            }catch (InputMismatchException|NullPointerException e){
+                System.out.println("Enter valid ID");
+            }
+        }else if (choice3thirdChoice.equalsIgnoreCase("2")){
+            System.out.println("Enter course name");
+            List<Course> tempList = courseList.findByName(choice3Scanner.nextLine());
+            for (Course course:tempList) {
+                course.getInfo();
+            }
+        }else if (choice3thirdChoice.equalsIgnoreCase("3")){
+            System.out.println("Enter course start date");
+            try{
+                List<Course> tempList = courseList.findByDate(LocalDate.parse(choice3Scanner.nextLine()));
+                for (Course course:tempList) {
+                    course.getInfo();
+                }
+            }catch (NullPointerException|DateTimeParseException e){
+                System.out.println("Enter valid date (YYYY-MM-DD)");
+            }
+        }else if (choice3thirdChoice.equalsIgnoreCase("4")){
+            List<Course> tempList = courseList.findAll();
+            for (Course course:tempList) {
+                course.getInfo();
+            }
+        }else{
+            System.out.println("Make a choice between 1 - 4");
+        }
+    }
+
 
     public void choice4Edit(){
         Scanner choice4Scanner = new Scanner (System.in);
@@ -203,7 +200,6 @@ public class Run {
             try {
                 Student tempStudent = studentList.findByEmail(choice4Scanner.nextLine());
                 System.out.println(tempStudent.getName() + "\n(1) Edit name: \n(2) Edit email: \n(3) Edit address");
-
                 String choice4thirdChoice = choice4Scanner.nextLine();
                 if (choice4thirdChoice.equalsIgnoreCase("1")) {
                     System.out.println("Enter new name");
@@ -247,5 +243,4 @@ public class Run {
             System.out.println("Make a choice between 1 - 2");
         }
     }
-
 }
