@@ -8,9 +8,11 @@ import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
 public class Run {
     private CourseDaoList courseList = new CourseDaoList();
     private StudentDaoList studentList = new StudentDaoList();
+    
     public void run (){
         Scanner scan = new Scanner (System.in);
         boolean isInUse = true;
